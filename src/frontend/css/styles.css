@@ -144,7 +144,7 @@ body.drawer-open .drawer-btn {
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 1.5rem;
-    width: 320px;
+    width: 380px; /* Made slightly wider */
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
@@ -205,19 +205,27 @@ body.drawer-open .drawer-btn {
 }
 
 .seat {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     background-color: var(--seat-available);
     border-radius: 6px 6px 2px 2px;
     cursor: pointer;
     transition: all 0.2s ease;
     border: 1px solid rgba(255,255,255,0.05);
     position: relative;
+    /* Center align the text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-main);
 }
 
 .seat:hover {
     transform: scale(1.1);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    z-index: 10;
 }
 
 .seat::after {
