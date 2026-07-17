@@ -15,12 +15,21 @@ class RedisManager(TicketDBManager):
         self.app_id = app_id
         
         if host is None:
-            host = os.getenv("REDIS_HOST", "localhost")
-        if port is None:
-            port = int(os.getenv("REDIS_PORT", 6379))
+            # Render gives a full URL sometimes, let's support it directly
+            redis_url = os.getenv("REDIS_URL")
+            if redis_url:
+                self.client = redis.Redis.from_url(redis_url, decode_responses=True)
+            else:
+                host = os.getenv("REDIS_HOST", "localhost")
+                port = int(os.getenv("REDIS_PORT", 6379))
+                # If user accidentally put the full URL in REDIS_HOST
+                if host.startswith("redis://"):
+                    self.client = redis.Redis.from_url(host, decode_responses=True)
+                else:
+                    self.client = redis.Redis(host=host, port=port, db=db, decode_responses=True)
+        else:
+            self.client = redis.Redis(host=host, port=port, db=db, decode_responses=True)
             
-        self.client = redis.Redis(host=host, port=port, db=db, decode_responses=True)
-        
         # Check if we need to reset/migrate data (for demo purposes)
         first_seat = self.client.hgetall("seat:A1")
         if first_seat and "origin_app" not in first_seat:
