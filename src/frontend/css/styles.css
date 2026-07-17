@@ -131,6 +131,36 @@ body.drawer-open .drawer-btn {
     right: calc(var(--drawer-width) + 20px);
 }
 
+/* GitHub Toggle Button */
+.github-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: right 0.3s ease, background-color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+
+.github-btn:hover {
+    background-color: var(--gold);
+    color: #000;
+    transform: scale(1.1);
+}
+
+body.drawer-open .github-btn {
+    right: calc(var(--drawer-width) + 20px);
+}
+
 /* Dashboard Layout */
 .dashboard {
     display: flex;

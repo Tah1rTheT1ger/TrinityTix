@@ -13,8 +13,9 @@ The project simulates three distinct ticketing applications (District, BookMySho
   - `Booked` operations override `Held` operations across all databases.
   - Conflicts between identical states (e.g., both systems holding a seat simultaneously) are resolved using strict **First-Come-First-Served (FCFS)** logic via precise timestamping.
 - **Global Color Coding:** The frontend dynamically tracks the `origin_app` of a booking. If a seat is booked on BookMyShow, it turns Red across the Ticketmaster and District UI as well.
-- **Premium UI:** Vanilla HTML/CSS/JS frontend styled with a modern glassmorphism aesthetic and a sleek black and gold theme.
-- **Network Logger:** An integrated frontend dashboard panel visibly logs all REST API operations in real-time.
+- **Responsive Premium UI:** Vanilla HTML/CSS/JS frontend styled with a modern glassmorphism aesthetic, sleek black and gold theme, and a completely fluid layout scaling gracefully on small laptops without scrolling or wrapping.
+- **Network Logger Drawer:** An integrated frontend dashboard panel visibly logs all REST API operations in real-time, matching backend interactions.
+- **Custom Assets & GitHub Integration:** Includes a completely custom-built SVG favicon for branding and an integrated floating GitHub link mirroring the app's aesthetic.
 
 ---
 
@@ -31,6 +32,7 @@ The project simulates three distinct ticketing applications (District, BookMySho
 ### Frontend (Vanilla HTML/CSS/JS)
 - Zero build steps required—just open `index.html`.
 - Implements optimistic UI updates for instant feedback while handling backend fallbacks on failure.
+- Uses dynamic `clamp` sizes and Flexbox properties for a perfectly fluid, auto-sizing grid.
 
 ---
 
@@ -74,10 +76,10 @@ To run this project locally, you need:
 
 ---
 
-## ☁️ Free Hosting Guide
+## ☁️ Live Demo & Hosting
 
 If you wish to host this project publicly for free:
-1. **Frontend:** Deploy `src/frontend` directly to [Vercel](https://vercel.com) or [Netlify](https://netlify.com) (Update the `API_BASE_URL` in `app.js` first).
+1. **Frontend:** Deployed via [Vercel](https://trinitytixlive.vercel.app). 
 2. **Backend & Redis:** Create a free Web Service and a free Redis instance on [Render](https://render.com). Point the web service to your `src/backend` folder.
 3. **MongoDB:** Sign up for a free M0 Cluster on [MongoDB Atlas](https://mongodb.com/atlas).
 
