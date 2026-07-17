@@ -1,0 +1,362 @@
+:root {
+    --bg-dark: #191919;
+    --bg-panel: rgba(25, 25, 25, 0.8);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-blue: #d4af37; /* Gold for sync */
+    --accent-blue-hover: #b8972e;
+    --btn-danger: #333333; /* Dark for reset */
+    --btn-danger-hover: #555555;
+    
+    --seat-available: #333333;
+    --seat-available-hover: #4d4d4d;
+    --border-color: rgba(212, 175, 55, 0.2); /* Subtle gold border */
+    
+    --db-sqlite: #7801fb;
+    --db-redis: #eb4e62;
+    --db-mongo: #006ae8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(180deg, #000000 0%, var(--bg-dark) 100%);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #d4af37; /* Gold */
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-blue);
+    color: #000;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px 0 rgba(212, 175, 55, 0.39);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-blue-hover);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-danger {
+    background-color: var(--btn-danger);
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+}
+
+.btn-danger:hover {
+    background-color: var(--btn-danger-hover);
+    transform: translateY(-2px);
+}
+
+/* Main Dashboard */
+.dashboard {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+/* App Container (Glassmorphism) */
+.app-container {
+    background: var(--bg-panel);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 380px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.app-container:hover {
+    transform: translateY(-5px);
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.app-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.db-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.db-badge.sqlite { background-color: rgba(14, 165, 233, 0.2); color: var(--db-sqlite); border: 1px solid var(--db-sqlite); }
+.db-badge.redis { background-color: rgba(220, 38, 38, 0.2); color: var(--db-redis); border: 1px solid var(--db-redis); }
+.db-badge.mongo { background-color: rgba(16, 185, 129, 0.2); color: var(--db-mongo); border: 1px solid var(--db-mongo); }
+
+/* Theatre & Seats */
+.theatre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seats-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.seat {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background-color: var(--seat-available);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: transparent;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.seat:hover {
+    background-color: var(--seat-available-hover);
+}
+
+.seat.held {
+    color: #fff;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+.seat.booked {
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* App Specific Seat Colors */
+/* District (SQLite) - Base: #7801fb */
+[data-origin="district"].seat.held {
+    background-color: #9c42fc; /* Lighter */
+    box-shadow: 0 0 10px rgba(156, 66, 252, 0.4);
+}
+[data-origin="district"].seat.booked {
+    background-color: #5501b3; /* Darker */
+    box-shadow: 0 0 10px rgba(85, 1, 179, 0.4);
+}
+
+/* BookMyShow (Redis) - Base: #eb4e62 */
+[data-origin="bookmyshow"].seat.held {
+    background-color: #f07b8a; /* Lighter */
+    box-shadow: 0 0 10px rgba(240, 123, 138, 0.4);
+}
+[data-origin="bookmyshow"].seat.booked {
+    background-color: #b03a49; /* Darker */
+    box-shadow: 0 0 10px rgba(176, 58, 73, 0.4);
+}
+
+/* Ticketmaster (MongoDB) - Base: #006ae8 */
+[data-origin="ticketmaster"].seat.held {
+    background-color: #4d9cff; /* Lighter */
+    box-shadow: 0 0 10px rgba(77, 156, 255, 0.4);
+}
+[data-origin="ticketmaster"].seat.booked {
+    background-color: #004da8; /* Darker */
+    box-shadow: 0 0 10px rgba(0, 77, 168, 0.4);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Screen */
+.screen-indicator {
+    width: 80%;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    padding-top: 5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    box-shadow: 0 -10px 20px rgba(255, 255, 255, 0.05);
+}
+
+/* Network Logger */
+.network-logger {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 350px;
+    max-height: 250px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.logger-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.btn-small {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+}
+
+.btn-small:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#log-list {
+    list-style: none;
+    overflow-y: auto;
+    padding: 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.log-entry {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font-family: monospace;
+    word-break: break-all;
+    animation: slideIn 0.3s ease forwards;
+}
+
+.log-entry .timestamp {
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+.log-entry.sync {
+    border-left: 3px solid var(--accent-blue);
+}
+
+.log-entry.post {
+    border-left: 3px solid var(--seat-held);
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.seat-example {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+.seat-example.available { background-color: var(--seat-available); border: 1px solid rgba(255,255,255,0.2); }
+[data-origin="district"].seat-example.held { background-color: #9c42fc; } 
+[data-origin="district"].seat-example.booked { background-color: #5501b3; }
+[data-origin="bookmyshow"].seat-example.held { background-color: #f07b8a; } 
+[data-origin="bookmyshow"].seat-example.booked { background-color: #b03a49; }
+[data-origin="ticketmaster"].seat-example.held { background-color: #4d9cff; } 
+[data-origin="ticketmaster"].seat-example.booked { background-color: #004da8; }

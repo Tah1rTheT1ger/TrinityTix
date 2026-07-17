@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrinityTix - Multi-DB Ticket Booking</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <h1>TrinityTix</h1>
+        <p>Eventual Consistency Demo across Redis, SQLite & MongoDB</p>
+        <div>
+            <button id="sync-btn" class="btn-primary">Sync Databases</button>
+            <button id="reset-btn" class="btn-danger">Reset All</button>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <!-- District (SQLite) -->
+        <section class="app-container" id="app-district">
+            <div class="app-header">
+                <h2>District</h2>
+                <span class="db-badge sqlite">SQLite</span>
+            </div>
+            <div class="theatre">
+                <div class="seats-container" id="seats-district">
+                    <!-- Seats generated via JS -->
+                </div>
+                <div class="screen-indicator">Screen</div>
+            </div>
+        </section>
+
+        <!-- BookMyShow (Redis) -->
+        <section class="app-container" id="app-bookmyshow">
+            <div class="app-header">
+                <h2>BookMyShow</h2>
+                <span class="db-badge redis">Redis</span>
+            </div>
+            <div class="theatre">
+                <div class="seats-container" id="seats-bookmyshow">
+                    <!-- Seats generated via JS -->
+                </div>
+                <div class="screen-indicator">Screen</div>
+            </div>
+        </section>
+
+        <!-- Ticketmaster (MongoDB) -->
+        <section class="app-container" id="app-ticketmaster">
+            <div class="app-header">
+                <h2>Ticketmaster</h2>
+                <span class="db-badge mongo">MongoDB</span>
+            </div>
+            <div class="theatre">
+                <div class="seats-container" id="seats-ticketmaster">
+                    <!-- Seats generated via JS -->
+                </div>
+                <div class="screen-indicator">Screen</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Network Logger -->
+    <aside class="network-logger" id="network-logger">
+        <div class="logger-header">
+            <h3>Network Activity</h3>
+            <button id="clear-log" class="btn-small">Clear</button>
+        </div>
+        <ul id="log-list">
+            <!-- Logs go here -->
+        </ul>
+    </aside>
+
+    <!-- Legend -->
+    <div class="legend">
+        <div class="legend-item">
+            <div class="seat-example available"></div>
+            <span>Available</span>
+        </div>
+        <div class="legend-item">
+            <div class="seat-example held" data-origin="district"></div>
+            <span>District (Held)</span>
+        </div>
+        <div class="legend-item">
+            <div class="seat-example booked" data-origin="district"></div>
+            <span>District (Booked)</span>
+        </div>
+        <div class="legend-item">
+            <div class="seat-example held" data-origin="bookmyshow"></div>
+            <span>BookMyShow (Held)</span>
+        </div>
+        <div class="legend-item">
+            <div class="seat-example booked" data-origin="bookmyshow"></div>
+            <span>BookMyShow (Booked)</span>
+        </div>
+        <div class="legend-item">
+            <div class="seat-example held" data-origin="ticketmaster"></div>
+            <span>Ticketmaster (Held)</span>
+        </div>
+        <div class="legend-item">
+            <div class="seat-example booked" data-origin="ticketmaster"></div>
+            <span>Ticketmaster (Booked)</span>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
