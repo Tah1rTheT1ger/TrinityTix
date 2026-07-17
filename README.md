@@ -1,5 +1,8 @@
 # TrinityTix 🎟️
 
+**🚀 [Live Deployment Demo](https://trinitytixlive.vercel.app/)**
+
+
 TrinityTix is a full-stack ticket booking system designed to demonstrate **Eventual Consistency** across three heterogeneous database systems: **SQLite**, **Redis**, and **MongoDB**. 
 
 The project simulates three distinct ticketing applications (District, BookMyShow, and Ticketmaster) attempting to synchronize their internal states in a distributed-like architecture.
