@@ -9,9 +9,13 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from core.db_manager import TicketDBManager
 
 class MongoDBManager(TicketDBManager):
-    def __init__(self, uri: str = "mongodb://localhost:27017/", db_name: str = "ticketmaster_db", app_id: str = "ticketmaster"):
+    def __init__(self, uri: str = None, db_name: str = "ticketmaster_db", app_id: str = "ticketmaster"):
         super().__init__()
         self.app_id = app_id
+        
+        if uri is None:
+            uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
+            
         self.client = MongoClient(uri)
         self.db = self.client[db_name]
         self.seats_col = self.db["seats"]

@@ -10,9 +10,15 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from core.db_manager import TicketDBManager
 
 class RedisManager(TicketDBManager):
-    def __init__(self, host: str = "localhost", port: int = 6379, db: int = 0, app_id: str = "bookmyshow"):
+    def __init__(self, host: str = None, port: int = None, db: int = 0, app_id: str = "bookmyshow"):
         super().__init__()
         self.app_id = app_id
+        
+        if host is None:
+            host = os.getenv("REDIS_HOST", "localhost")
+        if port is None:
+            port = int(os.getenv("REDIS_PORT", 6379))
+            
         self.client = redis.Redis(host=host, port=port, db=db, decode_responses=True)
         
         # Check if we need to reset/migrate data (for demo purposes)
