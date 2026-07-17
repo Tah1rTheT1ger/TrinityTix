@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'https://trinitytix.onrender.com/api';
 const APPS = ['district', 'bookmyshow', 'ticketmaster'];
 const ROWS = 5;
 const COLS = 10;
