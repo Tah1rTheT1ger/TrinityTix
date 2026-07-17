@@ -11,6 +11,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('sync-btn').addEventListener('click', syncDatabases);
     document.getElementById('reset-btn').addEventListener('click', resetDatabases);
     document.getElementById('clear-log').addEventListener('click', clearLog);
+
+    // Drawer and Tabs logic
+    const drawer = document.getElementById('drawer');
+    const drawerToggle = document.getElementById('drawer-toggle');
+    drawerToggle.addEventListener('click', () => {
+        drawer.classList.toggle('open');
+        document.body.classList.toggle('drawer-open');
+    });
+    
+    // Set initial padding for body
+    if(drawer.classList.contains('open')) {
+        document.body.classList.add('drawer-open');
+    }
+
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active from all
+            tabBtns.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            // Add active to clicked
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.target).classList.add('active');
+        });
+    });
 });
 
 // Create DOM elements for seats

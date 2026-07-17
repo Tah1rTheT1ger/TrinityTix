@@ -8,8 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <button id="drawer-toggle" class="drawer-btn" title="Toggle Sidebar">☰</button>
+
     <header class="header">
-        <h1>TrinityTix</h1>
+        <img src="assets/logo.png" alt="TrinityTix Logo" class="logo">
         <p>Eventual Consistency Demo across Redis, SQLite & MongoDB</p>
         <div>
             <button id="sync-btn" class="btn-primary">Sync Databases</button>
@@ -61,17 +63,6 @@
         </section>
     </main>
 
-    <!-- Network Logger -->
-    <aside class="network-logger" id="network-logger">
-        <div class="logger-header">
-            <h3>Network Activity</h3>
-            <button id="clear-log" class="btn-small">Clear</button>
-        </div>
-        <ul id="log-list">
-            <!-- Logs go here -->
-        </ul>
-    </aside>
-
     <!-- Legend -->
     <div class="legend">
         <div class="legend-item">
@@ -79,30 +70,60 @@
             <span>Available</span>
         </div>
         <div class="legend-item">
-            <div class="seat-example held" data-origin="district"></div>
-            <span>District (Held)</span>
+            <div class="seat-pair">
+                <div class="seat-example held" data-origin="district"></div>
+                <div class="seat-example booked" data-origin="district"></div>
+            </div>
+            <span>District (Held/Booked)</span>
         </div>
         <div class="legend-item">
-            <div class="seat-example booked" data-origin="district"></div>
-            <span>District (Booked)</span>
+            <div class="seat-pair">
+                <div class="seat-example held" data-origin="bookmyshow"></div>
+                <div class="seat-example booked" data-origin="bookmyshow"></div>
+            </div>
+            <span>BookMyShow (Held/Booked)</span>
         </div>
         <div class="legend-item">
-            <div class="seat-example held" data-origin="bookmyshow"></div>
-            <span>BookMyShow (Held)</span>
-        </div>
-        <div class="legend-item">
-            <div class="seat-example booked" data-origin="bookmyshow"></div>
-            <span>BookMyShow (Booked)</span>
-        </div>
-        <div class="legend-item">
-            <div class="seat-example held" data-origin="ticketmaster"></div>
-            <span>Ticketmaster (Held)</span>
-        </div>
-        <div class="legend-item">
-            <div class="seat-example booked" data-origin="ticketmaster"></div>
-            <span>Ticketmaster (Booked)</span>
+            <div class="seat-pair">
+                <div class="seat-example held" data-origin="ticketmaster"></div>
+                <div class="seat-example booked" data-origin="ticketmaster"></div>
+            </div>
+            <span>Ticketmaster (Held/Booked)</span>
         </div>
     </div>
+
+    <!-- Right Side Drawer -->
+    <aside class="drawer open" id="drawer">
+        <div class="drawer-tabs">
+            <button class="tab-btn active" data-target="tab-network">Network Logs</button>
+            <button class="tab-btn" data-target="tab-info">Project Info</button>
+        </div>
+        
+        <div class="tab-content active" id="tab-network">
+            <div class="logger-header">
+                <h3>Network Activity</h3>
+                <button id="clear-log" class="btn-small">Clear</button>
+            </div>
+            <ul id="log-list">
+                <!-- Logs go here -->
+            </ul>
+        </div>
+
+        <div class="tab-content" id="tab-info">
+            <h3>About TrinityTix</h3>
+            <p>
+                This project demonstrates the ability to architect a full-stack system utilizing three distinct database paradigms:
+            </p>
+            <ul>
+                <li><strong>Relational (SQL):</strong> SQLite</li>
+                <li><strong>In-Memory (Key-Value):</strong> Redis</li>
+                <li><strong>NoSQL (Document):</strong> MongoDB</li>
+            </ul>
+            <p>
+                The core concept showcased here is <strong>Eventual Consistency</strong> across distributed systems. By leveraging an Operation Log (Oplog) with strict <em>First-Come-First-Served</em> timestamp comparisons and status priority levels (Booked > Held > Available), the systems can independently process user requests and synchronize to a unified, conflict-free state without locking.
+            </p>
+        </div>
+    </aside>
 
     <script src="js/app.js"></script>
 </body>
