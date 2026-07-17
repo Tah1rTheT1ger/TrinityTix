@@ -135,9 +135,10 @@ body.drawer-open .drawer-btn {
 .dashboard {
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    padding: 0 2rem;
-    flex-wrap: wrap;
+    gap: 1.5vw;
+    padding: 0 1.5vw;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 .app-container {
@@ -145,8 +146,12 @@ body.drawer-open .drawer-btn {
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 1rem;
-    width: 380px; /* Made slightly wider */
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 380px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
 }
 
 .app-header {
@@ -156,10 +161,12 @@ body.drawer-open .drawer-btn {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .app-header h2 {
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
     color: var(--text-main);
 }
 
@@ -179,6 +186,7 @@ body.drawer-open .drawer-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .screen-indicator {
@@ -202,12 +210,16 @@ body.drawer-open .drawer-btn {
 .seats-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 0.4rem;
+    gap: 0.4vw;
+    width: 100%;
+    max-width: 250px;
 }
 
 .seat {
-    width: 35px;
-    height: 35px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 35px;
+    max-height: 35px;
     background-color: var(--seat-available);
     border-radius: 6px 6px 2px 2px;
     cursor: pointer;
@@ -218,7 +230,7 @@ body.drawer-open .drawer-btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.75rem;
+    font-size: clamp(0.5rem, 2vw, 0.75rem);
     font-weight: 600;
     color: var(--text-main);
 }
